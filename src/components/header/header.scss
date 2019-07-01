@@ -1,0 +1,49 @@
+.header {
+  width: 100%;
+  height: 78px;
+  display: flex;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.9);
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  background: #483c38;
+
+  .brand--logo {
+    display: flex;
+    align-items: center;
+    img {
+      height: 50px;
+      margin-right: 10px;
+    }
+    img ~ div p:last-child{
+      font-weight: 100;
+    }
+  }
+
+  .logout--area {
+    display: flex;
+    p {
+      font-weight: 100;
+      margin-right: 20px;
+    }
+  }
+
+  h2 {
+    // font-weight: 400;
+    font-size: 22px;
+  }
+
+  p {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  h2, p {
+    color: #fff;
+    cursor: pointer;
+  }
+}
