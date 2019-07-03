@@ -6,6 +6,9 @@ function Layout({ history, children }) {
   return (
     <React.Fragment>
       <Header history={history} />
+      <div style={{ marginTop: "78px" }}>
+        {children}
+      </div>
     </React.Fragment>
   )
 }

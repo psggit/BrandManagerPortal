@@ -1,26 +1,16 @@
 import React from "react"
 import { useEffect, useState } from "react"
-import { fetchPromoters, updatePromoterStatus } from "../Api"
-import Table from "Components/Table"
-import { mountTableActionsMenu } from "Components/Table/utils"
-import SearchInput from "Components/SearchInput"
-import { Form } from "Components/Form"
-import PageHeading from "Components/PageHeading"
+import { fetchPromoters, updatePromoterStatus, fetchSalesAndRevenueDistr } from "../Api"
 import Pagination from "react-js-pagination"
-import Toggle from "Components/Toggle"
 import {
   getOffsetUsingPageNo,
   getQueryParamByName,
   getQueryUri
 } from "../utils/helpers"
 
-import Button from "Components/Button"
-import { unmountTableActionsMenu } from "Components/Table/utils";
-import { NavLink } from "react-router-dom";
-import ConfirmModal from "Components/ModalBox/ConfirmModal"
-import CreateNewPromoter from "./CreateNewPromoter"
-import EditPromoter from "./EditPromoter"
-import { mountModal, unmountModal } from "Components/ModalBox/api"
+import Container from "./../Container"
+import SalesRevenueDistr from "./SalesAndRevenueDistr"
+import Filters from "./filters"
 
 export default function ListPromoters(props) {
   const pageNo = parseInt(getQueryParamByName("page")) || 1
@@ -28,7 +18,6 @@ export default function ListPromoters(props) {
   const limit = 20
   const [promoters, setPromoters] = useState([])
   const [promotersCount, setPromotersCount] = useState(0)
-  const [isLoaded, setLoadingState] = useState(false)
   const [activePage, setActivePage] = useState(pageNo)
   const [activeOffset, setActiveOffset] = useState(getOffsetUsingPageNo(pageNo, limit))
   const [toggleData, setToggleData] = useState(false)
@@ -87,113 +76,32 @@ export default function ListPromoters(props) {
 
   /** Api call for fetching promoters  */
   useEffect(() => {
-    setLoadingState(false)
-    fetchPromoters(fetchPromotersReq)
-      .then(fetchPromotersRes => {
-        setPromotersCount(fetchPromotersRes.count)
-        setPromoters(fetchPromotersRes.promoter)
-        setLoadingState(true)
+    fetchSalesAndRevenueDistr()
+      .then(res => {
+        console.log(res)
       })
       .catch(err => {
         console.log(err)
-        setLoadingState(true)
       })
   }, [activeOffset, finalFilterValue, toggleData])
 
-  const tableColumns = [
-    {
-      name: "ID",
-      mapping: "id",
-      // fn: id => <NavLink to={`/admin/promoters/detail/${id}`}>{id}</NavLink>
-    },
-    {
-      name: "Name",
-      mapping: "name"
-    },
-    {
-      name: "Email",
-      mapping: "email"
-    },
-    {
-      name: "Store name",
-      mapping: "store_name",
-    },
-    {
-      name: "State",
-      mapping: "state_name"
-    },
-    {
-      name: "City",
-      mapping: "city_name"
-    },
-    {
-      name: "Phone",
-      mapping: "mobile_number"
-    },
-    {
-      name: "Status",
-      mapping: null,
-      fn: item =>
-        <Toggle
-          value={item.is_active}
-          onChange={(toggleStatus) => {
-            const updatePromoterStatusReq = {
-              id: item.id,
-              is_active: toggleStatus
-            }
-            mountModal(ConfirmModal({
-              title: `${toggleStatus ? "Activate" : "Deactivate"} promoter`,
-              message: `Are you sure you want to ${toggleStatus ? "activate" : "deactivate"} this promoter?`,
-              handleConfirm: () => {
-                unmountModal()
-                updatePromoterStatus(updatePromoterStatusReq)
-                  .then(updatePromoterStatusRes => {
-                    alert(updatePromoterStatusRes.message)
-                    setToggleData(!toggleData)
-                  })
-                  .catch(err => {
-                    err.response().then(json => { alert(json.message) })
-                  })
-              }
-            }))
-          }}
-        />
-    },
-    {
-      name: null,
-      mapping: null,
-      fn: item => <Button appearance="secondary" size="small" onClick={() => {
-        mountModal(EditPromoter({ id: item.id, name: item.name, history: props.history }))
-      }}>Edit</Button>
-    }
-  ]
-
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <PageHeading>Promoters List</PageHeading>
-        <div style={{ paddingBottom: "20px", marginLeft: "20px" }}>
-          <Button appearance="primary" onClick={() => {
-            mountModal(CreateNewPromoter({ history: props.history }))
-          }}>Create Promoter</Button>
-        </div>
-      </div>
-      <Table
-        data={promoters}
-        columns={tableColumns}
-        isLoaded={isLoaded}
-      />
-      <Pagination
-        activePage={activePage}
-        itemsCountPerPage={limit}
-        totalItemsCount={promotersCount}
-        pageRangeDisplayed={5}
-        onChange={(active) => {
-          handlePageUrl(searchValue, active)
-          setActiveOffset(getOffsetUsingPageNo(active, limit))
-          setActivePage(active)
-        }}
-      />
+      <Filters />
+      <Container>
+        <SalesRevenueDistr />
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={limit}
+          totalItemsCount={promotersCount}
+          pageRangeDisplayed={5}
+          onChange={(active) => {
+            handlePageUrl(searchValue, active)
+            setActiveOffset(getOffsetUsingPageNo(active, limit))
+            setActivePage(active)
+          }}
+        />
+      </Container>
     </div>
   )
 }

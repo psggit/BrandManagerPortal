@@ -9,6 +9,7 @@
     "cosmos": "auth0/cosmos",
     "helmet": "^3.18.0",
     "react": "^16.8.6",
+    "react-day-picker": "^7.3.0",
     "react-dom": "^16.8.6",
     "react-js-pagination": "^3.0.2",
     "react-router": "^5.0.0",

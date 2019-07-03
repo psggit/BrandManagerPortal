@@ -86,3 +86,19 @@ export function editPromoter(req) {
   })
     .then(json => json)
 }
+
+export function fetchSalesAndRevenueDistr(req) {
+  return GET({
+    api: "/daily_sales_revenue",
+    apiBase: "bmbackend"
+  })
+    .then(json => json)
+}
+
+export function fetchGenres(req) {
+  return GET({
+    api: "/genres",
+    apiBase: "bmbackend"
+  })
+    .then(json => json)
+}

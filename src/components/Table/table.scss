@@ -1,8 +1,9 @@
 table {
-  border: 1px solid #c8e1ff;
+  width: 100%;
+  border: 0px solid #c8e1ff;
   border-collapse: collapse;
-  border-color: #c8e1ff;
-  background-color: #fff;
+  border-color: #e6e6e6;
+  // background-color: #fff;
   a {
     color: #0366d6;
   }
@@ -16,11 +17,6 @@ table {
   text-align: center;
 }
 
-thead tr {
-  background: #f1f8ff;
-  color: #24292e;
-}
-
 td, th {
   padding: 6px 10px;
   position: relative;
@@ -30,6 +26,16 @@ td a:hover {
   text-decoration: underline
 }
 
+thead tr th {
+  border: 0;
+}
+
+table tbody tr:hover {
+  background-color: #483c38;
+  td {
+    color: #fff;
+  }
+}
 
 .table--action-menu {
   background: #fff;
