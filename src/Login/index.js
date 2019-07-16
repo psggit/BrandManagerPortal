@@ -25,6 +25,10 @@ export default function Login(props) {
         .then(json => {
           setLoadingState(false)
           createSession(json)
+          authTokenInfo()
+            .then(json => {
+              localStorage.setItem("username", json.username)
+            })
           props.history.push("/admin")
         })
         .catch(err => {

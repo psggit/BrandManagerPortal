@@ -42,11 +42,10 @@ export default function Filters(props) {
   }
 
   const handleFilterApply = e => {
-    const queryUri = getQueryUri({
+    props.setFilters({
       from_date,
       to_date,
-      city_id: selectedCity,
-      state_short_name: selectedState
+      city_id: selectedCity
     })
   }
 
@@ -98,7 +97,7 @@ export default function Filters(props) {
         <div className="col">
           <Input
             value={
-              from_date.length > 0
+              typeof from_date === "object"
                 ? `${from_date.toJSON().slice(0, 10)} - ${to_date.toJSON().slice(0, 10)}`
                 : "--All time--"
             }

@@ -31,8 +31,7 @@ export default function Header({ history }) {
       <div>
         <div className="logout--area">
           <div>
-            <p>Aprup Shet</p>
-            <p>Sipping spirits pvt. ltd.</p>
+            <p>{localStorage.getItem("username")}</p>
           </div>
           <Button onClick={handleClick}>Logout</Button>
         </div>

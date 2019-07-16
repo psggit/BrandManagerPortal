@@ -7,7 +7,6 @@ export default function InsightAcrossUnits(props) {
     <div className="card">
       <p style={{ marginBottom: "10px" }}>Across Units Sold</p>
       {props.data.map((item, i) => {
-        console.log(i % props.data.length)
         return (
           <div style={{
             marginBottom: "15px",

@@ -100,7 +100,7 @@ export function fetchSalesAndRevenueDistr(req) {
   return POST({
     api: `/daily_sales_revenue?limit=${req.limit}&offset=${req.offset}`,
     apiBase: "bmbackend",
-    data: req.filters
+    data: req.body
   })
     .then(json => json)
 }
@@ -117,6 +117,22 @@ export function fetchSalesInsight(req) {
 export function fetchGenres(req) {
   return GET({
     api: "/genres",
+    apiBase: "bmbackend"
+  })
+    .then(json => json)
+}
+
+export function fetchBrands(req) {
+  return GET({
+    api: "/brands",
+    apiBase: "bmbackend"
+  })
+    .then(json => json)
+}
+
+export function fetchSkus(req) {
+  return GET({
+    api: `/skus/${req.brand_id}`,
     apiBase: "bmbackend"
   })
     .then(json => json)

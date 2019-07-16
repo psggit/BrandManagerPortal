@@ -27,6 +27,7 @@ function App() {
   useEffect(() => {
     authTokenInfo()
       .then(json => {
+        localStorage.setItem("username", json.username)
         if (history.location.pathname.includes("login")) {
           createSession(json)
           location.href = "/admin"
