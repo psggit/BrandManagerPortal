@@ -27,13 +27,12 @@ select {
   width: 287px;
   padding: 5px 20px;
   height: 36px;
-  background-color: #eff3f6;
   border-radius: 4px;
   border-width: 1px;
   border-style: solid;
   &.primary {
     border-color: #a39d9b;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #766d6a;
     color: #fff;
   }
   &.secondary {

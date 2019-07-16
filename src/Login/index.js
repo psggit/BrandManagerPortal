@@ -37,7 +37,7 @@ export default function Login(props) {
   return (
     <div id="login--page">
       <div>
-        <h2>Sign in to Promoter Management</h2>
+        <h2>Sign in</h2>
         <div className="login--page__form">
           <Form>
             <FormGroup>

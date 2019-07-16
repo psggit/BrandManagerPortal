@@ -3,6 +3,7 @@ import DayPicker from "react-day-picker"
 import { ModalBox, ModalHeader, ModalFooter, ModalBody } from "Components/ModalBox"
 import "./DatePicker.scss"
 import Button from "Components/Button"
+import Icon from "Components/Icon"
 import { unmountModal } from "Components/ModalBox/api"
 
 // import "react-day-picker/lib/style.css"
@@ -36,7 +37,9 @@ export default function DatePickerModal(props) {
       return (
         <div id="DatePickerModal">
           <ModalBox>
-            <ModalHeader></ModalHeader>
+            <ModalHeader>
+              <Icon onClick={unmountModal} name="cross" />
+            </ModalHeader>
             <ModalBody>
               <div>
                 <p>From</p>

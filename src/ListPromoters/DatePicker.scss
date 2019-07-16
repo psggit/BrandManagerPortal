@@ -4,6 +4,13 @@
     width: auto;
   }
 
+  .modal--box__header {
+    svg {
+      position: fixed;
+      right: -24px;
+    }
+  }
+
   .modal--box__body {
    padding: 20px;
    display: flex;

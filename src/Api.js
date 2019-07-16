@@ -87,10 +87,29 @@ export function editPromoter(req) {
     .then(json => json)
 }
 
+export function fetchStoreRevenue(req) {
+  return POST({
+    api: `/daily_store_revenue?limit=${req.limit}&offset=${req.offset}`,
+    apiBase: "bmbackend",
+    data: req.filters
+  })
+    .then(json => json)
+}
+
 export function fetchSalesAndRevenueDistr(req) {
-  return GET({
-    api: "/daily_sales_revenue",
-    apiBase: "bmbackend"
+  return POST({
+    api: `/daily_sales_revenue?limit=${req.limit}&offset=${req.offset}`,
+    apiBase: "bmbackend",
+    data: req.filters
+  })
+    .then(json => json)
+}
+
+export function fetchSalesInsight(req) {
+  return POST({
+    api: `/sales_insights`,
+    apiBase: "bmbackend",
+    data: req
   })
     .then(json => json)
 }
@@ -98,6 +117,22 @@ export function fetchSalesAndRevenueDistr(req) {
 export function fetchGenres(req) {
   return GET({
     api: "/genres",
+    apiBase: "bmbackend"
+  })
+    .then(json => json)
+}
+
+export function fetchStates(req) {
+  return GET({
+    api: "/states",
+    apiBase: "bmbackend"
+  })
+    .then(json => json)
+}
+
+export function fetchCities(req) {
+  return GET({
+    api: `/cities/${req.stateShortName}`,
     apiBase: "bmbackend"
   })
     .then(json => json)

@@ -34,7 +34,7 @@ export default function Header({ history }) {
             <p>Aprup Shet</p>
             <p>Sipping spirits pvt. ltd.</p>
           </div>
-          <Button>Logout</Button>
+          <Button onClick={handleClick}>Logout</Button>
         </div>
       </div>
     </div>

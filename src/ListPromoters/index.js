@@ -10,7 +10,11 @@ import {
 
 import Container from "./../Container"
 import SalesRevenueDistr from "./SalesAndRevenueDistr"
+import StorePerformance from "./StorePerformance"
 import Filters from "./filters"
+import RevenueAndUnitsArea from "./RevenueAndUnitsArea";
+import InsightAcrossGenres from "./Insights/AcrossRevenue";
+import Insight from "./Insights";
 
 export default function ListPromoters(props) {
   const pageNo = parseInt(getQueryParamByName("page")) || 1
@@ -33,7 +37,7 @@ export default function ListPromoters(props) {
     props.history.push("/admin/promoters")
   }
 
-  /** Filter will be applied only on submit  */
+  /** Filter will be applie[].push(selectedCity)d only on submit  */
   const handleFilterSubmit = e => {
     e.preventDefault()
     setFinalFilterValue(filterValue)
@@ -75,32 +79,30 @@ export default function ListPromoters(props) {
   }
 
   /** Api call for fetching promoters  */
-  useEffect(() => {
-    fetchSalesAndRevenueDistr()
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [activeOffset, finalFilterValue, toggleData])
+  // useEffect(() => {
+  //   fetchSalesAndRevenueDistr()
+  //     .then(res => {
+  //       console.log(res)
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }, [activeOffset, finalFilterValue, toggleData])
 
   return (
     <div>
-      <Filters />
+      <Filters history={props.history} />
       <Container>
-        <SalesRevenueDistr />
-        <Pagination
-          activePage={activePage}
-          itemsCountPerPage={limit}
-          totalItemsCount={promotersCount}
-          pageRangeDisplayed={5}
-          onChange={(active) => {
-            handlePageUrl(searchValue, active)
-            setActiveOffset(getOffsetUsingPageNo(active, limit))
-            setActivePage(active)
-          }}
-        />
+        <div>
+          <SalesRevenueDistr history={props.history} />
+        </div>
+        <div style={{ marginTop: "40px" }}>
+          <StorePerformance />
+        </div>
+
+        <div style={{ marginTop: "40px" }}>
+          <Insight />
+        </div>
       </Container>
     </div>
   )
