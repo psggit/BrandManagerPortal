@@ -4,11 +4,13 @@ import {
 } from 'recharts';
 
 
-export default function InsightAcrossGenres(props) {
+export default function UnitsInsightAcrossGenres(props) {
   const data = props.data.map(item => ({
     name: item.genre_name,
     value: item.percentage
   }))
+
+  // const data = []
 
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -29,22 +31,24 @@ export default function InsightAcrossGenres(props) {
   };
 
   return (
-    <PieChart width={400} height={400}>
-      <Pie
-        data={data}
-        cx={200}
-        cy={200}
-        labelLine={false}
-        label={renderCustomizedLabel}
-        outerRadius={100}
-        // innerRadius={60}
-        fill="#8884d8"
-        dataKey="value"
-      >
-        {
-          data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-        }
-      </Pie>
-    </PieChart>
+    <div className="card">
+      <PieChart width={400} height={400}>
+        <Pie
+          data={data}
+          cx={200}
+          cy={200}
+          labelLine={false}
+          label={renderCustomizedLabel}
+          outerRadius={100}
+          // innerRadius={60}
+          fill="#8884d8"
+          dataKey="value"
+        >
+          {
+            data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+          }
+        </Pie>
+      </PieChart>
+    </div>
   )
 }

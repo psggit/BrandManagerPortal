@@ -1,7 +1,16 @@
-.flex--col.across--revenue, .flex--col.across--genres {
+.flex--col.across--revenue, .flex--col.across--units {
+  width: calc((100% - 20px) / 2);
+  margin-bottom: 20px;
+}
+
+.flex--col.across--units {
+  margin-left: 20px;
+}
+
+.flex--col.across--genres__revenue, .flex--col.across--genres__units {
   width: calc((100% - 20px) / 2);
 }
 
-.flex--col.across--genres {
+.flex--col.flex--col.across--genres__units {
   margin-left: 20px;
 }
