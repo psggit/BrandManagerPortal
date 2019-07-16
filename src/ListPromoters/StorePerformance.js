@@ -55,9 +55,9 @@ export default function StorePerformance() {
       })
   }, [])
   return (
-    <div style={{ background: "#fff", padding: "20px 0" }}>
+    <div className="card">
       <div style={{
-        padding: "20px",
+        padding: "20px 0",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center"

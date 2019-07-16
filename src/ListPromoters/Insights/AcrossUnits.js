@@ -4,9 +4,10 @@ import { colors } from "Utils/helpers"
 
 export default function InsightAcrossUnits(props) {
   return (
-    <div style={{ width: "50%" }}>
+    <div className="card">
       <p style={{ marginBottom: "10px" }}>Across Units Sold</p>
       {props.data.map((item, i) => {
+        console.log(i % props.data.length)
         return (
           <div style={{
             marginBottom: "15px",
@@ -14,9 +15,12 @@ export default function InsightAcrossUnits(props) {
             alignItems: "center"
           }}>
             <div style={{ width: "calc(100% - 300px)" }}>
-              <HorizontalBar color={colors[[i % props.data.length]]} width={item.total_brand_units_per + "%"} />
+              <HorizontalBar color={colors[i % colors.length]} width={item.total_brand_units_per + "%"} />
             </div>
-            <p style={{ width: "300px" }}>{`${item.total_brand_units_per.toFixed(2)}% ${item.brand_name}`}</p>
+            <p style={{ width: "300px" }}>
+              <span style={{ display: "inline-block", width: "60px" }}>{`${item.total_brand_units_per.toFixed(2)}%`}</span>
+              <span style={{ marginLeft: "20px" }}>{item.brand_name}</span>
+            </p>
           </div>
         )
       })}

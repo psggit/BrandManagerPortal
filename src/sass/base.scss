@@ -7,7 +7,8 @@ body {
   padding: 0;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
-  font-family: "Source Sans Pro", serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
 }
 
 a {
@@ -47,4 +48,16 @@ select {
 
 p, td, tr, th {
   color: #766d6a;
+}
+
+
+.card {
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 #dfdfdf;
+  padding: 20px;
+}
+
+.flex--row {
+  display: flex;
 }
