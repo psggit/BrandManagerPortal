@@ -124,7 +124,7 @@ export function fetchGenres(req) {
 
 export function fetchBrands(req) {
   return GET({
-    api: "/brands",
+    api: `/brands/${req.genre_id}`,
     apiBase: "bmbackend"
   })
     .then(json => json)

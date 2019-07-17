@@ -29,7 +29,7 @@ export default function Login(props) {
             .then(json => {
               localStorage.setItem("username", json.username)
             })
-          props.history.push("/admin")
+          location.href = "/admin"
         })
         .catch(err => {
           console.log(err)

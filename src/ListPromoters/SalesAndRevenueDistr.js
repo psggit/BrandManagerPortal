@@ -37,9 +37,8 @@ const tableColumns = [
 
 
 export default function SalesAndRevenueDistr(props) {
-  const pageNo = parseInt(getQueryParamByName("page")) || 1
   const limit = 20
-  const [isLoaded, setLoadingState] = useState(true)
+  const [isLoaded, setLoadingState] = useState(false)
   const [salesData, setSalesData] = useState([])
   const [genres, setGenres] = useState([])
   const [brands, setBrands] = useState([])
@@ -49,7 +48,7 @@ export default function SalesAndRevenueDistr(props) {
   const [activeSku, setActiveSku] = useState("0")
   const [totalVolume, setTotalVolume] = useState(0)
   const [activeOffset, setActiveOffset] = useState(0)
-  const [activePage, setActivePage] = useState(pageNo)
+  const [activePage, setActivePage] = useState(1)
   const [salesDataCount, setSalesDataCount] = useState(0)
 
   /** change url based on pagination/search  */
@@ -64,12 +63,46 @@ export default function SalesAndRevenueDistr(props) {
     props.history.push(`/admin/promoters${getQueryUri(queryObj)}`)
   }
 
+  const reset = () => {
+    setActiveOffset(0)
+    setActivePage(1)
+  }
+
   useEffect(() => {
     fetchGenres()
       .then(res => {
         setGenres(res.genres)
       })
   }, [])
+
+  const handleGenreChange = e => {
+    reset()
+    setActiveGenre(e.target.value)
+    const fetchBrandsReq = {
+      genre_id: e.target.value
+    }
+    fetchBrands(fetchBrandsReq)
+      .then(json => {
+        setBrands(json.brands)
+      })
+  }
+
+  const handleBrandsChange = e => {
+    reset()
+    setActiveBrand(e.target.value)
+    const fetchSkusReq = {
+      brand_id: parseInt(e.target.value)
+    }
+    fetchSkus(fetchSkusReq)
+      .then(json => {
+        setSkus(json.skus)
+      })
+  }
+
+  const handleSkusChange = e => {
+    reset()
+    setActiveSku(e.target.value)
+  }
 
   const salesAndRevenueDistrReq = {
     limit,
@@ -88,30 +121,41 @@ export default function SalesAndRevenueDistr(props) {
     }
   }
 
-  const handleGenreChange = e => {
-    fetchBrands()
-      .then(json => {
-        setBrands(json.brands)
-      })
-  }
-
-  const handleBrandsChange = e => {
-    const fetchSkusReq = {
-      brand_id: 1
+  if (activeGenre != "0" || activeBrand != "0" || activeSku != "0") {
+    if (salesAndRevenueDistrReq.body.filter == undefined) {
+      salesAndRevenueDistrReq.body.filter = {}
     }
-    fetchSkus(fetchSkusReq)
-      .then(json => {
-        console.log(json)
-      })
+
+    if (activeGenre != "0") {
+      salesAndRevenueDistrReq.body.filter.genre_id = parseInt(activeGenre)
+    }
+    if (activeBrand != "0") {
+      delete salesAndRevenueDistrReq.body.filter.genre_id
+      salesAndRevenueDistrReq.body.filter.brand_id = parseInt(activeBrand)
+    }
+    if (activeSku != "0") {
+      salesAndRevenueDistrReq.body.filter.sku_id = parseInt(activeSku)
+    }
   }
 
   useEffect(() => {
     fetchSalesAndRevenueDistr(salesAndRevenueDistrReq)
       .then(res => {
+        setLoadingState(true)
         setSalesData(res.sales_data)
         setTotalVolume(res.total_volume)
+        setSalesDataCount(res.count)
       })
-  }, [props.city_id, props.from_date, props.to_date])
+  }, [
+      props.city_id,
+      props.from_date,
+      props.to_date,
+      activeGenre,
+      activeBrand,
+      activeSku,
+      activeOffset
+    ])
+
   return (
     <div className="card">
       <div style={{
@@ -124,17 +168,18 @@ export default function SalesAndRevenueDistr(props) {
 
         <div style={{ display: "flex" }}>
           <select onChange={handleGenreChange}>
+            <option value="0">--All Genres--</option>
             {genres.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
           </select>
 
-          <select style={{ margin: "0 10px" }}>
-            <option>--All Brands--</option>
-            {brands.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
+          <select onChange={handleBrandsChange} style={{ margin: "0 10px" }}>
+            <option value="0">--All Brands--</option>
+            {brands.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
           </select>
 
-          <select>
-            <option>--All Skus--</option>
-            {skus.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
+          <select onChange={handleSkusChange}>
+            <option value="0">--All Skus--</option>
+            {skus.map(item => <option value={item.id} key={item.id}>{item.volume}</option>)}
           </select>
         </div>
 
@@ -150,7 +195,6 @@ export default function SalesAndRevenueDistr(props) {
         totalItemsCount={salesDataCount}
         pageRangeDisplayed={5}
         onChange={(active) => {
-          handlePageUrl(searchValue, active)
           setActiveOffset(getOffsetUsingPageNo(active, limit))
           setActivePage(active)
         }}
