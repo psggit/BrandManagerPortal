@@ -20,12 +20,14 @@ export default function Dasboard(props) {
   const [from_date, setFromDate] = useState("")
   const [to_date, setToDate] = useState("")
   const [city_id, setCityID] = useState(0)
+  const [state_short_name, setState] = useState("")
 
   const setFilters = (filters) => {
-    const { from_date, to_date, city_id } = filters
+    const { from_date, to_date, city_id, state_short_name } = filters
     setFromDate(from_date)
     setToDate(to_date)
     setCityID(city_id)
+    setState(state_short_name)
   }
 
   return (
@@ -35,6 +37,7 @@ export default function Dasboard(props) {
         <div>
           <SalesRevenueDistr
             history={props.history}
+            state_short_name={state_short_name}
             from_date={from_date}
             to_date={to_date}
             city_id={city_id}

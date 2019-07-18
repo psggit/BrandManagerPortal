@@ -110,12 +110,17 @@ export default function SalesAndRevenueDistr(props) {
     body: {}
   }
 
-  if (props.city_id || (props.from_date && props.to_date)) {
-    if (props.city_id) {
+  if (props.city_id || (props.from_date && props.to_date) || props.state_short_name) {
+    console.log(props)
+    if (props.state_short_name.length > 0) {
+      salesAndRevenueDistrReq.body.state_short_name = props.state_short_name
+    }
+
+    if (props.city_id != 0) {
       salesAndRevenueDistrReq.body.city_id = parseInt(props.city_id)
     }
 
-    if (props.from_date && props.to_date) {
+    if (props.from_date.length && props.to_date.length) {
       salesAndRevenueDistrReq.body.from_date = props.from_date
       salesAndRevenueDistrReq.body.to_date = props.to_date
     }
@@ -150,6 +155,7 @@ export default function SalesAndRevenueDistr(props) {
       props.city_id,
       props.from_date,
       props.to_date,
+      props.state_short_name,
       activeGenre,
       activeBrand,
       activeSku,

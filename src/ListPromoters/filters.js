@@ -12,7 +12,7 @@ export default function Filters(props) {
   const [to_date, setToDate] = useState("")
   const [states, setStates] = useState([])
   const [cities, setCities] = useState([])
-  const [selectedState, setSelectedState] = useState("0")
+  const [selectedState, setSelectedState] = useState("")
   const [selectedCity, setSelectedCity] = useState("0")
 
   const setDateFilter = function (from_date, to_date) {
@@ -43,6 +43,7 @@ export default function Filters(props) {
 
   const handleFilterApply = e => {
     props.setFilters({
+      state_short_name: selectedState,
       from_date,
       to_date,
       city_id: selectedCity
@@ -73,7 +74,7 @@ export default function Filters(props) {
 
         <div className="col">
           <select value={selectedState} onChange={handleStateChange} className="primary">
-            <option value="0">--All states--</option>
+            <option value="">--All states--</option>
             {states.map(item => {
               return <option value={item.short_name}>{item.name}</option>
             })}
