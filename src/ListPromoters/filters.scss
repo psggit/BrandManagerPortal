@@ -19,4 +19,18 @@
     font-size: 24px;
     font-weight: 400;
   }
+
+  .date--filter {
+    position: relative;
+    span{
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%); 
+    }
+
+    span svg {
+      fill: #fff;
+    }
+  }
 }

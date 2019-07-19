@@ -6,6 +6,7 @@ import Button from "Components/Button"
 import DatePickerModal from "./DatePickerModal"
 import { fetchStates, fetchCities } from "../Api";
 import { getQueryUri, getQueryParamByName } from "../utils/helpers";
+import Icon from "Components/Icon"
 
 export default function Filters(props) {
   const [from_date, setFromDate] = useState("")
@@ -96,19 +97,29 @@ export default function Filters(props) {
         </div>
 
         <div className="col">
-          <Input
-            value={
-              typeof from_date === "object"
-                ? `${from_date.toJSON().slice(0, 10)} - ${to_date.toJSON().slice(0, 10)}`
-                : "--All time--"
+          <div className="date--filter">
+            <Input
+              value={
+                typeof from_date === "object"
+                  ? `${from_date.toJSON().slice(0, 10)} - ${to_date.toJSON().slice(0, 10)}`
+                  : "--All time--"
+              }
+              readOnly={from_date && to_date}
+              onFocus={() => {
+                mountModal(DatePickerModal({
+                  setDateFilter: setDateFilter
+                }))
+              }}
+              appearance="primary" type="text" />
+            {
+              typeof from_date == "object" && typeof to_date == "object"
+                ? <Icon onClick={() => {
+                  setFromDate("")
+                  setToDate("")
+                }} name="cross-circle" />
+                : ""
             }
-            readOnly={from_date && to_date}
-            onFocus={() => {
-              mountModal(DatePickerModal({
-                setDateFilter: setDateFilter
-              }))
-            }}
-            appearance="primary" type="text" />
+          </div>
         </div>
 
         <div className="col">

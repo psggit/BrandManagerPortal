@@ -18,6 +18,10 @@ const tableColumns = [
     mapping: "city_name"
   },
   {
+    name: "Sku",
+    mapping: "sku_volume"
+  },
+  {
     name: "Unit Sold",
     mapping: "total_brand_units"
   },
@@ -120,9 +124,9 @@ export default function SalesAndRevenueDistr(props) {
       salesAndRevenueDistrReq.body.city_id = parseInt(props.city_id)
     }
 
-    if (props.from_date.length && props.to_date.length) {
-      salesAndRevenueDistrReq.body.from_date = props.from_date
-      salesAndRevenueDistrReq.body.to_date = props.to_date
+    if (typeof props.from_date == "object" && typeof props.to_date == "object") {
+      salesAndRevenueDistrReq.body.from_date = props.from_date.toISOString()
+      salesAndRevenueDistrReq.body.to_date = props.to_date.toISOString()
     }
   }
 
