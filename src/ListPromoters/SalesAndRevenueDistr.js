@@ -125,8 +125,8 @@ export default function SalesAndRevenueDistr(props) {
     }
 
     if (typeof props.from_date == "object" && typeof props.to_date == "object") {
-      salesAndRevenueDistrReq.body.from_date = props.from_date.toISOString()
-      salesAndRevenueDistrReq.body.to_date = props.to_date.toISOString()
+      salesAndRevenueDistrReq.body.from_date = props.from_date.toJSON().slice(0, 10)
+      salesAndRevenueDistrReq.body.to_date = props.to_date.toJSON().slice(0, 10)
     }
   }
 
