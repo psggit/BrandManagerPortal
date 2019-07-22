@@ -91,7 +91,7 @@ export function fetchStoreRevenue(req) {
   return POST({
     api: `/daily_store_revenue?limit=${req.limit}&offset=${req.offset}`,
     apiBase: "bmbackend",
-    data: req.filters
+    data: req.body
   })
     .then(json => json)
 }

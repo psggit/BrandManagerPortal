@@ -41,7 +41,7 @@ const tableColumns = [
 
 
 export default function SalesAndRevenueDistr(props) {
-  const limit = 20
+  const limit = 10
   const [isLoaded, setLoadingState] = useState(false)
   const [salesData, setSalesData] = useState([])
   const [genres, setGenres] = useState([])
