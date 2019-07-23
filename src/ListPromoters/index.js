@@ -43,13 +43,25 @@ export default function Dasboard(props) {
             city_id={city_id}
           />
         </div>
-        {/* <div style={{ marginTop: "40px" }}>
-          <StorePerformance />
+        <div style={{ marginTop: "40px" }}>
+          <StorePerformance
+            history={props.history}
+            state_short_name={state_short_name}
+            from_date={from_date}
+            to_date={to_date}
+            city_id={city_id}
+          />
         </div>
 
         <div style={{ marginTop: "40px" }}>
-          <Insight />
-        </div> */}
+          <Insight
+            history={props.history}
+            state_short_name={state_short_name}
+            from_date={from_date}
+            to_date={to_date}
+            city_id={city_id}
+          />
+        </div>
       </Container>
     </div>
   )

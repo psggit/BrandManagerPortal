@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import Table from "Components/Table"
-import { fetchGenres, fetchBrands, fetchSkus, fetchStoreRevenue } from "../Api"
+import { fetchGenres, fetchBrands, fetchSkus, fetchStoreRevenue, fetchRetailers } from "../Api"
 import Pagination from "react-js-pagination"
 import {
   getOffsetUsingPageNo,
@@ -12,6 +12,10 @@ const tableColumns = [
   {
     name: "Store",
     mapping: "retailer_name"
+  },
+  {
+    name: "Brand",
+    mapping: "brand_name"
   },
   {
     name: "City",
@@ -49,6 +53,8 @@ export default function SalesAndRevenueDistr(props) {
   const [activeOffset, setActiveOffset] = useState(0)
   const [activePage, setActivePage] = useState(1)
   const [retailerCount, setRetailerCount] = useState(0)
+  const [retailers, setRetailers] = useState([])
+  const [activeRetailer, setActiveRetailer] = useState("0")
 
   /** change url based on pagination/search  */
   const handlePageUrl = (searchValue, pageNo) => {
@@ -73,6 +79,11 @@ export default function SalesAndRevenueDistr(props) {
         setGenres(res.genres)
       })
   }, [])
+
+  const handleRetailerChange = e => {
+    reset()
+    setActiveRetailer(e.target.value)
+  }
 
   const handleGenreChange = e => {
     reset()
@@ -110,7 +121,6 @@ export default function SalesAndRevenueDistr(props) {
   }
 
   if (props.city_id || (props.from_date && props.to_date) || props.state_short_name) {
-    console.log(props)
     if (props.state_short_name.length > 0) {
       storePerformanceReq.body.state_short_name = props.state_short_name
     }
@@ -125,7 +135,7 @@ export default function SalesAndRevenueDistr(props) {
     }
   }
 
-  if (activeGenre != "0" || activeBrand != "0" || activeSku != "0") {
+  if (activeGenre != "0" || activeBrand != "0" || activeRetailer != "0") {
     if (storePerformanceReq.body.filter == undefined) {
       storePerformanceReq.body.filter = {}
     }
@@ -137,10 +147,17 @@ export default function SalesAndRevenueDistr(props) {
       delete storePerformanceReq.body.filter.genre_id
       storePerformanceReq.body.filter.brand_id = parseInt(activeBrand)
     }
-    if (activeSku != "0") {
-      storePerformanceReq.body.filter.sku_id = parseInt(activeSku)
+    if (activeRetailer != "0") {
+      storePerformanceReq.body.filter.retailer_id = parseInt(activeRetailer)
     }
   }
+
+  useEffect(() => {
+    fetchRetailers()
+      .then(res => {
+        setRetailers(res.retailers)
+      })
+  }, [])
 
   useEffect(() => {
     fetchStoreRevenue(storePerformanceReq)
@@ -157,7 +174,8 @@ export default function SalesAndRevenueDistr(props) {
       activeGenre,
       activeBrand,
       activeSku,
-      activeOffset
+      activeOffset,
+      activeRetailer
     ])
 
   return (
@@ -171,19 +189,19 @@ export default function SalesAndRevenueDistr(props) {
         <p>Total Stores: {retailerCount} </p>
 
         <div style={{ display: "flex" }}>
-          <select onChange={handleGenreChange}>
+          <select onChange={handleRetailerChange}>
+            <option value="0">--All retailers--</option>
+            {retailers.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
+          </select>
+
+          <select style={{ margin: "0 10px" }} onChange={handleGenreChange}>
             <option value="0">--All Genres--</option>
             {genres.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
           </select>
 
-          <select onChange={handleBrandsChange} style={{ margin: "0 10px" }}>
+          <select onChange={handleBrandsChange}>
             <option value="0">--All Brands--</option>
             {brands.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
-          </select>
-
-          <select onChange={handleSkusChange}>
-            <option value="0">--All Skus--</option>
-            {skus.map(item => <option value={item.id} key={item.id}>{item.volume}</option>)}
           </select>
         </div>
 

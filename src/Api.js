@@ -60,15 +60,6 @@ export function fetchConsumerDetail(req) {
     .then(json => json)
 }
 
-export function fetchRetailers(req) {
-  return POST({
-    api: "/Api/listRetailers",
-    apiBase: "retailer",
-    data: req
-  })
-    .then(json => json)
-}
-
 export function fetchStatesandCities(req) {
   return POST({
     api: "/Api/listStates",
@@ -149,6 +140,14 @@ export function fetchStates(req) {
 export function fetchCities(req) {
   return GET({
     api: `/cities/${req.stateShortName}`,
+    apiBase: "bmbackend"
+  })
+    .then(json => json)
+}
+
+export function fetchRetailers(req) {
+  return GET({
+    api: `/retailers`,
     apiBase: "bmbackend"
   })
     .then(json => json)
