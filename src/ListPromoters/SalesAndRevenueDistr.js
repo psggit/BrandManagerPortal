@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react"
 import Table from "Components/Table"
 import { fetchSalesAndRevenueDistr, fetchGenres, fetchSalesInsight, fetchBrands, fetchSkus } from "../Api"
 import Pagination from "react-js-pagination"
@@ -40,7 +40,7 @@ const tableColumns = [
 ]
 
 
-export default function SalesAndRevenueDistr(props) {
+const SalesAndRevenueDistr = forwardRef((props, ref) => {
   const limit = 10
   const [isLoaded, setLoadingState] = useState(false)
   const [salesData, setSalesData] = useState([])
@@ -66,6 +66,9 @@ export default function SalesAndRevenueDistr(props) {
     }
     props.history.push(`/admin/promoters${getQueryUri(queryObj)}`)
   }
+
+  // exposing reset method to parent
+  useImperativeHandle(ref, () => ({ reset }))
 
   const reset = () => {
     setActiveOffset(0)
@@ -115,7 +118,6 @@ export default function SalesAndRevenueDistr(props) {
   }
 
   if (props.city_id || (props.from_date && props.to_date) || props.state_short_name) {
-    console.log(props)
     if (props.state_short_name.length > 0) {
       salesAndRevenueDistrReq.body.state_short_name = props.state_short_name
     }
@@ -211,4 +213,6 @@ export default function SalesAndRevenueDistr(props) {
       />
     </div>
   )
-}
+})
+
+export default SalesAndRevenueDistr

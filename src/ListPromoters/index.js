@@ -1,5 +1,5 @@
 import React from "react"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { fetchPromoters, updatePromoterStatus, fetchSalesAndRevenueDistr, fetchGenres } from "../Api"
 import Pagination from "react-js-pagination"
 import {
@@ -22,12 +22,19 @@ export default function Dasboard(props) {
   const [city_id, setCityID] = useState(0)
   const [state_short_name, setState] = useState("")
 
+  const salesAndRevenueDistrRef = useRef()
+  const storePerformanceRef = useRef()
+
   const setFilters = (filters) => {
     const { from_date, to_date, city_id, state_short_name } = filters
     setFromDate(from_date)
     setToDate(to_date)
     setCityID(city_id)
     setState(state_short_name)
+
+    // calling child reset methods
+    salesAndRevenueDistrRef.current.reset()
+    storePerformanceRef.current.reset()
   }
 
   return (
@@ -36,6 +43,7 @@ export default function Dasboard(props) {
       <Container>
         <div>
           <SalesRevenueDistr
+            ref={salesAndRevenueDistrRef}
             history={props.history}
             state_short_name={state_short_name}
             from_date={from_date}
@@ -45,6 +53,7 @@ export default function Dasboard(props) {
         </div>
         <div style={{ marginTop: "40px" }}>
           <StorePerformance
+            ref={storePerformanceRef}
             history={props.history}
             state_short_name={state_short_name}
             from_date={from_date}
