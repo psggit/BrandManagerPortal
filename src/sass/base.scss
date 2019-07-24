@@ -61,3 +61,11 @@ p, td, tr, th {
 .flex--row {
   display: flex;
 }
+
+.heading {
+  text-transform: uppercase;
+  color: #766d6a;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+}

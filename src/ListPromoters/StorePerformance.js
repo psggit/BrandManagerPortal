@@ -138,7 +138,7 @@ const StorePerformance = forwardRef((props, ref) => {
     }
   }
 
-  if (activeGenre != "0" || activeBrand != "0" || activeRetailer != "0") {
+  if (activeRetailer != "0" || activeGenre != "0" || activeBrand != "0") {
     if (storePerformanceReq.body.filter == undefined) {
       storePerformanceReq.body.filter = {}
     }
@@ -176,54 +176,56 @@ const StorePerformance = forwardRef((props, ref) => {
       props.state_short_name,
       activeGenre,
       activeBrand,
-      activeSku,
       activeOffset,
       activeRetailer
     ])
 
   return (
-    <div className="card">
-      <div style={{
-        padding: "20px 0",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
-        <p>Total Stores: {retailerCount} </p>
+    <div>
+      <h3 className="heading">Store performance</h3>
+      <div className="card">
+        <div style={{
+          padding: "20px 0",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}>
+          <p>Total Stores: {retailerCount} </p>
 
-        <div style={{ display: "flex" }}>
-          <select onChange={handleRetailerChange}>
-            <option value="0">--All retailers--</option>
-            {retailers.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
-          </select>
+          <div style={{ display: "flex" }}>
+            <select onChange={handleRetailerChange}>
+              <option value="0">--All retailers--</option>
+              {retailers.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
+            </select>
 
-          <select style={{ margin: "0 10px" }} onChange={handleGenreChange}>
-            <option value="0">--All Genres--</option>
-            {genres.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
-          </select>
+            <select style={{ margin: "0 10px" }} onChange={handleGenreChange}>
+              <option value="0">--All Genres--</option>
+              {genres.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
+            </select>
 
-          <select onChange={handleBrandsChange}>
-            <option value="0">--All Brands--</option>
-            {brands.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
-          </select>
+            <select onChange={handleBrandsChange}>
+              <option value="0">--All Brands--</option>
+              {brands.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
+            </select>
+          </div>
+
         </div>
-
+        <Table
+          data={retailerData}
+          columns={tableColumns}
+          isLoaded={isLoaded}
+        />
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={limit}
+          totalItemsCount={retailerCount}
+          pageRangeDisplayed={5}
+          onChange={(active) => {
+            setActiveOffset(getOffsetUsingPageNo(active, limit))
+            setActivePage(active)
+          }}
+        />
       </div>
-      <Table
-        data={retailerData}
-        columns={tableColumns}
-        isLoaded={isLoaded}
-      />
-      <Pagination
-        activePage={activePage}
-        itemsCountPerPage={limit}
-        totalItemsCount={retailerCount}
-        pageRangeDisplayed={5}
-        onChange={(active) => {
-          setActiveOffset(getOffsetUsingPageNo(active, limit))
-          setActivePage(active)
-        }}
-      />
     </div>
   )
 })

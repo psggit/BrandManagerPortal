@@ -169,48 +169,51 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
     ])
 
   return (
-    <div className="card">
-      <div style={{
-        padding: "20px 0",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
-        <p>Total: {totalVolume} (in ml)</p>
+    <div>
+      <h3 className="heading">Sales and revenue distribution by volume - overall</h3>
+      <div className="card">
+        <div style={{
+          padding: "20px 0",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}>
+          <p>Total: {totalVolume} (in ml)</p>
 
-        <div style={{ display: "flex" }}>
-          <select onChange={handleGenreChange}>
-            <option value="0">--All Genres--</option>
-            {genres.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
-          </select>
+          <div style={{ display: "flex" }}>
+            <select onChange={handleGenreChange}>
+              <option value="0">--All Genres--</option>
+              {genres.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
+            </select>
 
-          <select onChange={handleBrandsChange} style={{ margin: "0 10px" }}>
-            <option value="0">--All Brands--</option>
-            {brands.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
-          </select>
+            <select onChange={handleBrandsChange} style={{ margin: "0 10px" }}>
+              <option value="0">--All Brands--</option>
+              {brands.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
+            </select>
 
-          <select onChange={handleSkusChange}>
-            <option value="0">--All Skus--</option>
-            {skus.map(item => <option value={item.id} key={item.id}>{item.volume}</option>)}
-          </select>
+            <select onChange={handleSkusChange}>
+              <option value="0">--All Skus--</option>
+              {skus.map(item => <option value={item.id} key={item.id}>{item.volume}</option>)}
+            </select>
+          </div>
+
         </div>
-
+        <Table
+          data={salesData}
+          columns={tableColumns}
+          isLoaded={isLoaded}
+        />
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={limit}
+          totalItemsCount={salesDataCount}
+          pageRangeDisplayed={5}
+          onChange={(active) => {
+            setActiveOffset(getOffsetUsingPageNo(active, limit))
+            setActivePage(active)
+          }}
+        />
       </div>
-      <Table
-        data={salesData}
-        columns={tableColumns}
-        isLoaded={isLoaded}
-      />
-      <Pagination
-        activePage={activePage}
-        itemsCountPerPage={limit}
-        totalItemsCount={salesDataCount}
-        pageRangeDisplayed={5}
-        onChange={(active) => {
-          setActiveOffset(getOffsetUsingPageNo(active, limit))
-          setActivePage(active)
-        }}
-      />
     </div>
   )
 })

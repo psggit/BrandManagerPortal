@@ -100,7 +100,7 @@ export function fetchSalesInsight(req) {
   return POST({
     api: `/sales_insights`,
     apiBase: "bmbackend",
-    data: req
+    data: req.body
   })
     .then(json => json)
 }
