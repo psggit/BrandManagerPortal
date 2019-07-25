@@ -85,11 +85,14 @@ const StorePerformance = forwardRef((props, ref) => {
 
   const handleRetailerChange = e => {
     reset()
+    setActiveGenre("0")
+    setActiveBrand("0")
     setActiveRetailer(e.target.value)
   }
 
   const handleGenreChange = e => {
     reset()
+    setActiveBrand("0")
     setActiveGenre(e.target.value)
     const fetchBrandsReq = {
       genre_id: e.target.value
@@ -150,8 +153,7 @@ const StorePerformance = forwardRef((props, ref) => {
     if (activeRetailer != "0") {
       storePerformanceReq.body.filter.retailer_id = parseInt(activeRetailer)
     } else {
-      setActiveGenre("0")
-      setActiveBrand("0")
+      delete storePerformanceReq.body.filter
     }
   }
 
