@@ -133,16 +133,18 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
   }
 
   if (activeGenre != "0" || activeBrand != "0" || activeSku != "0") {
-    if (salesAndRevenueDistrReq.body.filter == undefined) {
-      salesAndRevenueDistrReq.body.filter = {}
-    }
+    salesAndRevenueDistrReq.body.filter = {}
 
     if (activeGenre != "0") {
       salesAndRevenueDistrReq.body.filter.genre_id = parseInt(activeGenre)
+    } else {
+      setActiveBrand("0")
+      setActiveSku("0")
     }
     if (activeBrand != "0") {
-      delete salesAndRevenueDistrReq.body.filter.genre_id
       salesAndRevenueDistrReq.body.filter.brand_id = parseInt(activeBrand)
+    } else {
+      setActiveSku("0")
     }
     if (activeSku != "0") {
       salesAndRevenueDistrReq.body.filter.sku_id = parseInt(activeSku)

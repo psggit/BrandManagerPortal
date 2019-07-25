@@ -139,19 +139,19 @@ const StorePerformance = forwardRef((props, ref) => {
   }
 
   if (activeRetailer != "0" || activeGenre != "0" || activeBrand != "0") {
-    if (storePerformanceReq.body.filter == undefined) {
-      storePerformanceReq.body.filter = {}
-    }
+    storePerformanceReq.body.filter = {}
 
     if (activeGenre != "0") {
       storePerformanceReq.body.filter.genre_id = parseInt(activeGenre)
     }
     if (activeBrand != "0") {
-      delete storePerformanceReq.body.filter.genre_id
       storePerformanceReq.body.filter.brand_id = parseInt(activeBrand)
     }
     if (activeRetailer != "0") {
       storePerformanceReq.body.filter.retailer_id = parseInt(activeRetailer)
+    } else {
+      setActiveGenre("0")
+      setActiveBrand("0")
     }
   }
 
