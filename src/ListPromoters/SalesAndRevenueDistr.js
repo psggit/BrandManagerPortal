@@ -137,14 +137,9 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
 
     if (activeGenre != "0") {
       salesAndRevenueDistrReq.body.filter.genre_id = parseInt(activeGenre)
-    } else {
-      setActiveBrand("0")
-      setActiveSku("0")
     }
     if (activeBrand != "0") {
       salesAndRevenueDistrReq.body.filter.brand_id = parseInt(activeBrand)
-    } else {
-      setActiveSku("0")
     }
     if (activeSku != "0") {
       salesAndRevenueDistrReq.body.filter.sku_id = parseInt(activeSku)
