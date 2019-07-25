@@ -11,31 +11,52 @@ import {
 const tableColumns = [
   {
     name: "Brand",
-    mapping: "brand_name"
+    mapping: "brand_name",
+    ui: {
+      align: "left"
+    }
   },
   {
     name: "City",
-    mapping: "city_name"
+    mapping: "city_name",
+    ui: {
+      align: "left"
+    }
   },
   {
     name: "Sku",
-    mapping: "sku_volume"
+    mapping: "sku_volume",
+    ui: {
+      align: "center"
+    }
   },
   {
     name: "Unit Sold",
-    mapping: "total_brand_units"
+    mapping: "total_brand_units",
+    ui: {
+      align: "center"
+    }
   },
   {
     name: "Cashback",
-    mapping: "total_brand_cashback"
+    mapping: "total_brand_cashback",
+    ui: {
+      align: "center"
+    }
   },
   {
     name: "Volume",
-    mapping: "total_brand_volume"
+    mapping: "total_brand_volume",
+    ui: {
+      align: "center"
+    }
   },
   {
     name: "Revenue",
-    mapping: "total_brand_revenue"
+    mapping: "total_brand_revenue",
+    ui: {
+      align: "center"
+    }
   }
 ]
 

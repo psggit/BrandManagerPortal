@@ -1,8 +1,26 @@
 import React from "react"
 import "./table.scss"
 
+/**
+ * create css class basesd on the ui object
+ * ({ui:
+ *   {<property>:<value>}
+ * })
+ * */
+function createCSSClass(uiObject) {
+  const basePrefix = "ui"
+  const classArray = []
+  Object.entries(uiObject).forEach(([key, value]) => {
+    classArray.push(`${basePrefix}--${key}__${value}`)
+  })
+
+  return classArray.join(" ")
+}
+
 export default function Table({ data, columns, isLoaded, history }) {
-  const headers = columns.map((item, i) => <th key={`th-${i}`}>{item.name}</th>)
+  const headers = columns.map((item, i) => {
+    return <th className={createCSSClass(item.ui)} key={`th-${i}`}>{item.name}</th>
+  })
   return (
     <div className="table--container">
       <table border="1">
@@ -16,7 +34,7 @@ export default function Table({ data, columns, isLoaded, history }) {
             <tr key={`r-${ri}`}>
               {
                 columns.map((col, ci) => (
-                  <td key={`c-${ci}`}>
+                  <td className={createCSSClass(columns[ci].ui)} key={`c-${ci}`}>
                     {
                       col.mapping !== null
                         ? (col.fn ? col.fn(row[col.mapping]) : row[col.mapping])
