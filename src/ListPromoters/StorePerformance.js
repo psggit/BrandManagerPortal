@@ -152,9 +152,9 @@ const StorePerformance = forwardRef((props, ref) => {
     }
     if (activeRetailer != "0") {
       storePerformanceReq.body.filter.retailer_id = parseInt(activeRetailer)
-    } else {
-      delete storePerformanceReq.body.filter
     }
+  } else {
+    delete storePerformanceReq.body.filter
   }
 
   useEffect(() => {
