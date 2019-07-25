@@ -84,6 +84,8 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
 
   const handleGenreChange = e => {
     reset()
+    setActiveBrand("0")
+    setActiveSku("0")
     setActiveGenre(e.target.value)
     const fetchBrandsReq = {
       genre_id: e.target.value
@@ -96,6 +98,7 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
 
   const handleBrandsChange = e => {
     reset()
+    setActiveSku("0")
     setActiveBrand(e.target.value)
     const fetchSkusReq = {
       brand_id: parseInt(e.target.value)
@@ -137,18 +140,15 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
 
     if (activeGenre != "0") {
       salesAndRevenueDistrReq.body.filter.genre_id = parseInt(activeGenre)
-    } else {
-      setActiveBrand("0")
-      setActiveSku("0")
     }
     if (activeBrand != "0") {
       salesAndRevenueDistrReq.body.filter.brand_id = parseInt(activeBrand)
-    } else {
-      setActiveSku("0")
     }
     if (activeSku != "0") {
       salesAndRevenueDistrReq.body.filter.sku_id = parseInt(activeSku)
     }
+  } else {
+    delete salesAndRevenueDistrReq.body.filter
   }
 
   useEffect(() => {
