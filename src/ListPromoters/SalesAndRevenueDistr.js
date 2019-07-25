@@ -82,6 +82,8 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
       })
   }, [])
 
+  console.log(activeSku)
+
   const handleGenreChange = e => {
     reset()
     setActiveBrand("0")
@@ -183,17 +185,17 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
           <p>Total: {totalVolume} (in ml)</p>
 
           <div style={{ display: "flex" }}>
-            <select onChange={handleGenreChange}>
+            <select value={activeGenre} onChange={handleGenreChange}>
               <option value="0">--All Genres--</option>
               {genres.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
             </select>
 
-            <select onChange={handleBrandsChange} style={{ margin: "0 10px" }}>
+            <select value={activeBrand} onChange={handleBrandsChange} style={{ margin: "0 10px" }}>
               <option value="0">--All Brands--</option>
               {brands.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
             </select>
 
-            <select onChange={handleSkusChange}>
+            <select value={activeSku} onChange={handleSkusChange}>
               <option value="0">--All Skus--</option>
               {skus.map(item => <option value={item.id} key={item.id}>{item.volume}</option>)}
             </select>

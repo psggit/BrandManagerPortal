@@ -195,17 +195,17 @@ const StorePerformance = forwardRef((props, ref) => {
           <p>Total Stores: {retailerCount} </p>
 
           <div style={{ display: "flex" }}>
-            <select onChange={handleRetailerChange}>
+            <select value={activeRetailer} onChange={handleRetailerChange}>
               <option value="0">--All retailers--</option>
               {retailers.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
             </select>
 
-            <select style={{ margin: "0 10px" }} onChange={handleGenreChange}>
+            <select value={activeGenre} style={{ margin: "0 10px" }} onChange={handleGenreChange}>
               <option value="0">--All Genres--</option>
               {genres.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
             </select>
 
-            <select onChange={handleBrandsChange}>
+            <select value={activeBrand} onChange={handleBrandsChange}>
               <option value="0">--All Brands--</option>
               {brands.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
             </select>
