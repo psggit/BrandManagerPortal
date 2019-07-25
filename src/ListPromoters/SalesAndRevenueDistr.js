@@ -11,31 +11,52 @@ import {
 const tableColumns = [
   {
     name: "Brand",
-    mapping: "brand_name"
+    mapping: "brand_name",
+    ui: {
+      align: "left"
+    }
   },
   {
     name: "City",
-    mapping: "city_name"
+    mapping: "city_name",
+    ui: {
+      align: "left"
+    }
   },
   {
     name: "Sku",
-    mapping: "sku_volume"
+    mapping: "sku_volume",
+    ui: {
+      align: "center"
+    }
   },
   {
     name: "Unit Sold",
-    mapping: "total_brand_units"
+    mapping: "total_brand_units",
+    ui: {
+      align: "center"
+    }
   },
   {
     name: "Cashback",
-    mapping: "total_brand_cashback"
+    mapping: "total_brand_cashback",
+    ui: {
+      align: "center"
+    }
   },
   {
     name: "Volume",
-    mapping: "total_brand_volume"
+    mapping: "total_brand_volume",
+    ui: {
+      align: "center"
+    }
   },
   {
     name: "Revenue",
-    mapping: "total_brand_revenue"
+    mapping: "total_brand_revenue",
+    ui: {
+      align: "center"
+    }
   }
 ]
 
@@ -81,6 +102,8 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
         setGenres(res.genres)
       })
   }, [])
+
+  console.log(activeSku)
 
   const handleGenreChange = e => {
     reset()
@@ -183,17 +206,17 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
           <p>Total: {totalVolume} (in ml)</p>
 
           <div style={{ display: "flex" }}>
-            <select onChange={handleGenreChange}>
+            <select value={activeGenre} onChange={handleGenreChange}>
               <option value="0">--All Genres--</option>
               {genres.map(item => <option value={item.genre_id} key={item.genre_id}>{item.genre_name}</option>)}
             </select>
 
-            <select onChange={handleBrandsChange} style={{ margin: "0 10px" }}>
+            <select value={activeBrand} onChange={handleBrandsChange} style={{ margin: "0 10px" }}>
               <option value="0">--All Brands--</option>
               {brands.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
             </select>
 
-            <select onChange={handleSkusChange}>
+            <select value={activeSku} onChange={handleSkusChange}>
               <option value="0">--All Skus--</option>
               {skus.map(item => <option value={item.id} key={item.id}>{item.volume}</option>)}
             </select>
