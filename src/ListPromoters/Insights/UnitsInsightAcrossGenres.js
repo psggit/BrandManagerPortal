@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import { colors } from "Utils/helpers"
 
 export default function UnitInsightAcrossGenres(props) {
   const labels = props.data.reduce((a, b) => {
@@ -12,20 +13,18 @@ export default function UnitInsightAcrossGenres(props) {
     a.push(b.percentage)
     return a
   }, [])
+
+  const bgColors = []
+  for (let i = 0; i < props.data.length; i++) {
+    bgColors.push(colors[i % colors.length])
+  }
+
   const data = {
     labels,
     datasets: [{
       data: values,
-      backgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56'
-      ],
-      hoverBackgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56'
-      ]
+      backgroundColor: bgColors,
+      hoverBackgroundColor: bgColors
     }]
   }
   return (

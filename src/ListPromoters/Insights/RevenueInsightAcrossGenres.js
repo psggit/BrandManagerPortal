@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2'
+import { colors } from "Utils/helpers"
 
 export default function RevenueInsightAcrossGenres(props) {
   const labels = props.data.reduce((a, b) => {
@@ -9,23 +10,21 @@ export default function RevenueInsightAcrossGenres(props) {
   }, [])
 
   const values = props.data.reduce((a, b) => {
-    a.push(b.percentage)
+    a.push(b.percentage.toFixed(2))
     return a
   }, [])
+
+  const bgColors = []
+  for (let i = 0; i < props.data.length; i++) {
+    bgColors.push(colors[i % colors.length])
+  }
+
   const data = {
     labels,
     datasets: [{
       data: values,
-      backgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56'
-      ],
-      hoverBackgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56'
-      ]
+      backgroundColor: bgColors,
+      hoverBackgroundColor: bgColors
     }]
   }
   return (
