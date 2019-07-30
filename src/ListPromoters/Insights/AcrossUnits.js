@@ -5,7 +5,7 @@ import { colors } from "Utils/helpers"
 export default function InsightAcrossUnits(props) {
   return (
     <div className="card">
-      <p style={{ marginBottom: "10px" }}>Across Units Sold</p>
+      <p style={{ marginBottom: "10px" }}>Units sold across brands</p>
       {props.data.map((item, i) => {
         return (
           <div style={{

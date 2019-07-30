@@ -1,54 +1,37 @@
-import React, { PureComponent } from 'react';
-import {
-  PieChart, Pie, Sector, Cell,
-} from 'recharts';
 
+import React from 'react';
+import { Doughnut } from 'react-chartjs-2';
 
-export default function UnitsInsightAcrossGenres(props) {
-  const data = props.data.map(item => ({
-    name: item.genre_name,
-    value: item.percentage
-  }))
+export default function UnitInsightAcrossGenres(props) {
+  const labels = props.data.reduce((a, b) => {
+    a.push(b.genre_name)
+    return a
+  }, [])
 
-  // const data = []
-
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-  const RADIAN = Math.PI / 180;
-  const renderCustomizedLabel = ({
-    cx, cy, midAngle, innerRadius, outerRadius, percent, index,
-  }) => {
-    console.log(percent)
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
-  };
-
+  const values = props.data.reduce((a, b) => {
+    a.push(b.percentage)
+    return a
+  }, [])
+  const data = {
+    labels,
+    datasets: [{
+      data: values,
+      backgroundColor: [
+        '#FF6384',
+        '#36A2EB',
+        '#FFCE56'
+      ],
+      hoverBackgroundColor: [
+        '#FF6384',
+        '#36A2EB',
+        '#FFCE56'
+      ]
+    }]
+  }
   return (
     <div className="card">
-      <PieChart width={400} height={400}>
-        <Pie
-          data={data}
-          cx={200}
-          cy={200}
-          labelLine={false}
-          label={renderCustomizedLabel}
-          outerRadius={100}
-          // innerRadius={60}
-          fill="#8884d8"
-          dataKey="value"
-        >
-          {
-            data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-          }
-        </Pie>
-      </PieChart>
+      <p style={{ marginBottom: "10px" }}>Units sold across genres</p>
+      <Doughnut data={data} />
     </div>
   )
 }

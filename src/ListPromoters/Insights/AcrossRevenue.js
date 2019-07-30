@@ -5,7 +5,7 @@ console.log("debug")
 export default function InsightAcrossRevenue(props) {
   return (
     <div className="card">
-      <p style={{ marginBottom: "10px" }}>Across Revenue</p>
+      <p style={{ marginBottom: "10px" }}>Revenue across brands</p>
       {props.data.map((item, i) => {
         return (
           <div style={{
