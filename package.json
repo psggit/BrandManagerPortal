@@ -6,9 +6,11 @@
   "author": "Madhur Garg",
   "license": "MIT",
   "dependencies": {
+    "chart.js": "^2.8.0",
     "cosmos": "auth0/cosmos",
     "helmet": "^3.18.0",
     "react": "^16.8.6",
+    "react-chartjs-2": "^2.7.6",
     "react-day-picker": "^7.3.0",
     "react-dom": "^16.8.6",
     "react-js-pagination": "^3.0.2",
