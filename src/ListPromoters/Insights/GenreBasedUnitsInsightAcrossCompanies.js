@@ -10,12 +10,12 @@ export default function GenreBasedUnitsInsightAcrossCompanies(props) {
   }, [])
 
   const marketValues = props.data.reduce((a, b) => {
-    a.push(b.market.toFixed(2))
+    a.push(b.percentage.toFixed(2))
     return a
   }, [])
 
   const shareValues = props.data.reduce((a, b) => {
-    a.push(b.share.toFixed(2))
+    a.push((100 - b.percentage).toFixed(2))
     return a
   }, [])
 
@@ -33,8 +33,8 @@ export default function GenreBasedUnitsInsightAcrossCompanies(props) {
         backgroundColor: '#80e4e6'
       },
       {
-        label: "Genre",
-        data: marketValues,
+        label: "Other Companies",
+        data: shareValues,
         backgroundColor: '#f3f3f3'
       }
     ]
@@ -46,8 +46,9 @@ export default function GenreBasedUnitsInsightAcrossCompanies(props) {
         data={data}
         width={100}
         height={250}
+        redraw={false}
         options={{
-          maintainAspectRatio: false
+          maintainAspectRatio: false,
         }}
       />
     </div>

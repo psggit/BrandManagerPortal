@@ -42,15 +42,15 @@ export default function Insight(props) {
         setAcrossRevenue(json.insights.across_revenue_and_units_sold)
         setUnitsAcrossCompanies([
           {
-            company_name: json.insights.company_name,
-            percentage: json.insights.share
+            company_name: "Your Company",
+            percentage: json.insights.market_share
           },
           {
             company_name: 'others',
-            percentage: 100 - json.insights.share
+            percentage: 100 - json.insights.market_share
           }
         ])
-        setGenreBasedUnitsAcrossCompanies(json.insights.genre_distribution)
+        setGenreBasedUnitsAcrossCompanies(json.insights.against_rival_genres.units)
       })
   }, [
       props.city_id,
@@ -78,13 +78,16 @@ export default function Insight(props) {
           <UnitsInsightAcrossGenres data={unitsAcrossGenres} />
         </div>
       </div>
-      <div className="flex--row">
-        {/* <div className="flex--col across--genres__revenue">
-          <UnitsSoldAcrossCompanies data={unitsAcrossCompanies} />
+      <div style={{ marginTop: '40px' }}>
+        <h3 className="heading">MARKET SHARE DISTRIBUTION By Unit Sold</h3>
+        <div className="flex--row">
+          <div className="flex--col across--companies__units">
+            <UnitsSoldAcrossCompanies data={unitsAcrossCompanies} />
+          </div>
+          <div className="flex--col across--companies__genre__units">
+            <GenreBasedUnitsSoldAcrossCompanies data={genreBasedUnitsAcrossCompanies} />
+          </div>
         </div>
-        <div className="flex--col across--genres__units">
-          <GenreBasedUnitsSoldAcrossCompanies data={genreBasedUnitsAcrossCompanies} />
-        </div> */}
       </div>
     </div>
   )

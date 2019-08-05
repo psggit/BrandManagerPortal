@@ -206,7 +206,7 @@ const StorePerformance = forwardRef((props, ref) => {
   return (
     <div>
       <h3 className="heading">Store performance</h3>
-      <div className="card">
+      <div className="card" style={{ background: "#fff", padding: '20px' }}>
         <div style={{
           padding: "20px 0",
           display: "flex",

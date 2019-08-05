@@ -196,7 +196,7 @@ const SalesAndRevenueDistr = forwardRef((props, ref) => {
   return (
     <div>
       <h3 className="heading">Sales and revenue distribution by volume - overall</h3>
-      <div className="card">
+      <div className="card" style={{ background: "#fff", padding: '20px' }}>
         <div style={{
           padding: "20px 0",
           display: "flex",
