@@ -19,6 +19,30 @@ export default function GenreBasedUnitsInsightAcrossCompanies(props) {
     return a
   }, [])
 
+  const options = {
+    maintainAspectRatio: false,
+    scales: {
+      yAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Quantity",
+            fontSize: 20
+          }
+        }
+      ],
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Genres",
+            fontSize: 20
+          }
+        }
+      ]
+    }
+  }
+
   // const bgColors = []
   // for (let i = 0; i < props.data.length; i++) {
   //   bgColors.push(colors[i % colors.length])
@@ -47,9 +71,10 @@ export default function GenreBasedUnitsInsightAcrossCompanies(props) {
         width={100}
         height={250}
         redraw={false}
-        options={{
-          maintainAspectRatio: false,
-        }}
+        options={options}
+      // options={{
+      //   maintainAspectRatio: false,
+      // }}
       />
     </div>
   )
