@@ -25,7 +25,8 @@ export default function UnitInsightAcrossGenres(props) {
       data: values,
       backgroundColor: bgColors,
       hoverBackgroundColor: bgColors
-    }]
+    }],
+    text: ""
   }
   return (
     <div className="card">

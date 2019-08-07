@@ -25,7 +25,8 @@ export default function RevenueInsightAcrossGenres(props) {
       data: values,
       backgroundColor: bgColors,
       hoverBackgroundColor: bgColors
-    }]
+    }],
+    text: ""
   }
   return (
     <div className="card">
