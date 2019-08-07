@@ -5,12 +5,10 @@ import { Route } from "react-router-dom"
 import { createBrowserHistory } from "history"
 import { Router } from "react-router"
 import Layout from "./Layout"
-// import ListConsumers from "./ListPromoters"
-// import ConsumerDetail from "./PromoterDetail"
 import "Components/Pagination/pagination.scss"
 import Login from "./Login"
 import { authTokenInfo } from "./Api"
-import ListPromoters from "./ListPromoters";
+import ListBrandManagerDetails from "./ListBrandDetails";
 import { createSession } from "./utils/session"
 
 const history = createBrowserHistory()
@@ -55,18 +53,8 @@ function App() {
           <Route
             exact
             path="/admin"
-            render={props => <ListPromoters {...props} />}
+            render={props => <ListBrandManagerDetails {...props} />}
           />
-          <Route
-            exact
-            path="/admin/promoters"
-            render={props => <ListPromoters {...props} />}
-          />
-          {/* <Route
-            exact
-            path="/admin/consumers/detail/:consumer_id"
-            render={props => <ConsumerDetail {...props} />}
-          /> */}
         </Layout>
       </Switch>
     </Router>
